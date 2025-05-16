@@ -234,10 +234,108 @@ gender <- c('F', 'F', 'M')
 data.frame( student, score, gender ) -> students
 
 # 특정 컬럼의 데이터를 확인 
+# 결과가 벡터데이터로 나오는 경우
 # 데이터프레임명$컬럼명
+students$midturm
+# 데이터프레임명[[컬럼명]]
+students[['names']]
+# 데이터프레임명[[컬럼의위치]]
+students[[2]]
+# 컬럼을 이용하여 필터는 되지만 결과 데이터프레임
+students[1]
+
+# 특정 인덱스의 데이터를 확인 
+students[1, ]
+students[1, 3]
+# 2, 3번 학생의 중간과 기말 성적을 추출
+students[  c(2, 3), c('midturm', 'final') ]
+students[ c(1), c(3) ]
+
+# 조건식을 이용해서 데이터프레임 필터링
+# 중간 성적이 80점 이상인 학생의 정보를 확인 
+students$midturm >= 80 -> flag
+# flag는 인덱스의 조건식
+# 컬럼의 조건식 -> names, grade, gender
+students[ flag, c('names', 'grade', 'gender') ]
+
+# 데이터를 추가 (행을 추가)
+# 데이터의 형태가 같은 행을 추가 
+new_student <- data.frame(
+  names = 'test4', 
+  gender = 'M', 
+  final = 70, 
+  midturm = 60, 
+  grade = 3
+)
+new_student
+# students와 new_student를 행 결합 
+rbind(students, new_student) -> students
+
+# 파생변수 생성 -> 열 결합
+# 중간 성적과 기말 성적을 더한 총 점수 생성
+students$midturm + students$final -> total
+# 열 결합 -> cbind()
+cbind(students, total) -> students
+# 평균 점수 컬럼을 생성
+students$total / 2 -> students$mean
 students
 
+# 외부의 데이터 파일을 로드 
+# 경로(주소)
+# 절대경로
+  # 절대적인 주소
+  # 누가 보더라도 같은 위치
+  # 환경이 변하더라도(컴퓨터) 같은 위치를 지정 
+  # ex ) window : c:\users\admin\a.txt
+  #     mac : ~/user/a.txt
+  #     https://www.google.com
+# 상대경로
+  # 상대적인 주소
+  # 환경이 변할때 위치로 같이 변경
+  # ./ : 현재 작업중인 디렉토리(위치)
+  # ../ : 부모(상위) 디렉토리로 이동
+  # /디렉토리명/ : 자식(하위) 디렉토리로 이동
+  # 현재 디렉토리(./) -> 상위로 이동(../) -> 
+  # csv 하위 이동(csv/) -> csv_exam.csv
+    #  ../csv/csv_exam.csv
 
+# 외부의 csv 파일을 로드 -> 함수를 이용
+# csv 파일을 로드하여 데이터프레임으로 생성
+# 상대 경로로 파일 로드
+df <- read.csv('../csv/csv_exam.csv')
+df
+# 절대 경로로 파일의 로드 
+df2 <- read.csv('C:\\ubion_2025_2\\csv\\csv_exam.csv')
+df2
 
+# 데이터프레임을 확인 
+# 상위의 데이터 확인 
+head(df)
+# 상위의 3개를 확인 
+head(df, 3)
+# 하위의 데이터를 확인
+tail(df)
+tail(df, 3)
 
+# 데이터프레임의 크기를 확인 dim()
+dim(df)
+# 데이터프레임의 정보를 확인 str()
+str(df)
+# 통계 정보를 확인 summary()
+summary(df)
+# 뷰어창에서 데이터를 확인 
+View(df)
+
+# 파생변수를 생성 
+# 평균 성적 -> (수학 + 영어 + 과학) / 3
+df$mean <- (df$math + df$english + df$science) / 3
+df
+
+# ifelse(조건식, 참인경우 결과, 거짓인경우 결과)
+ifelse(
+  df$mean >= 70, 
+  'pass', 
+  'fail'
+) -> df$check
+head(df, 5)
 
