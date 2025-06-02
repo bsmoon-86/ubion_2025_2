@@ -112,7 +112,9 @@ def dir_load(file_path, file_tail = '*.*', engine = 'utf-8', selected = 0):
         result = dir_load_df(file_path, file_tail, engine)
     return result
 
-
-print(dir_load( r'C:\ubion_2025_2\csv\num_3' ))   # 반복횟수 : 5
-
-print(dir_load(r'C:\ubion_2025_2\csv\2021', selected=1)) # 결합된 데이터프레임
+# 모듈 테스트용 조건문 
+if __name__ == "__main__":
+    # 해당 py파일을 직접 실행했을때 -> code runner를 이용해서 Run Code를 실행할때
+    #                           -> cmd에서 python 파일명으로 실행할때
+    print(dir_load( r'C:\ubion_2025_2\csv\num_3' ))   # 반복횟수 : 5
+    print(dir_load(r'C:\ubion_2025_2\csv\2021', selected=1)) # 결합된 데이터프레임
