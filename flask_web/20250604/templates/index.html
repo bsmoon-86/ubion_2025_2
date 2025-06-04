@@ -6,6 +6,14 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- 하이퍼 링크 : 누르면 다른 페이지로 이동 -->
+    <!-- 절대 경로 하이퍼링크 -->
+    <a href="http://www.google.com">google로 이동</a>
+    <a href="http://www.naver.com">naver로 이동</a>
+    <!-- 상대 경로 하이퍼링크 -->
+    <!-- 현재 위치(root)에서 이동 -->
+    <a href="/test">test page로 이동</a>
+
     <h1>Get 방식 데이터 통신</h1>
     <!-- 유저가 입력한 데이터는 form 태그를 이용해서 데이터를 읽고 보낸다. -->
     <!-- 
@@ -20,6 +28,20 @@
         root(127.0.0.1:5000)/send_get 주소로 get 방식으로 데이터를 보낸다.
     -->
     <form action="/send_get" method="get">
+        <div>
+            <!-- div는 영역 태그 -->
+            <input type="text" name="input_id"/>
+        </div>
+        <div>
+            <input type="password" name="input_pass">
+        </div>
+        <div>
+            <input type="submit">
+        </div>
+    </form>
+
+    <h1>POST 방식 데이터 통신</h1>
+    <form action="/send_post" method="post">
         <div>
             <!-- div는 영역 태그 -->
             <input type="text" name="input_id"/>
