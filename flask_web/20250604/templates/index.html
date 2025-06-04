@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Get 방식 데이터 통신</h1>
+    <!-- 유저가 입력한 데이터는 form 태그를 이용해서 데이터를 읽고 보낸다. -->
+    <!-- 
+        action 속성은 데이터를 어디로 보낼것인가?
+        method 속성은 어떠한 방식으로 보낼것인가?
+    -->
+    <!-- 
+        유저가 입력할 수 있는 데이터의 공간은 2개
+        2개의 데이터를 로드해서 
+        {input_id : 첫번째 입력공간의 유저가 입력한 데이터, 
+        input_pass : 두번재 입력공간의 유저가 입력한 데이터}
+        root(127.0.0.1:5000)/send_get 주소로 get 방식으로 데이터를 보낸다.
+    -->
+    <form action="/send_get" method="get">
+        <div>
+            <!-- div는 영역 태그 -->
+            <input type="text" name="input_id"/>
+        </div>
+        <div>
+            <input type="password" name="input_pass">
+        </div>
+        <div>
+            <input type="submit">
+        </div>
+    </form>
+</body>
+</html>
