@@ -49,6 +49,34 @@ def index():
 def corona2():
 
     df = corona[ ['stateDt', '일일확진자', '일일사망자', 'stateTime', 'updateDt'] ]
+    # 만약에 유저가 보낸 데이터가 존재한다면?
+    if request.args:
+        # print('데이터가 존재')
+        # 유저가 보낸 데이터를 변수에 저장 
+        s_year = request.args['s_year']
+        s_month = request.args['s_month']
+        s_day = request.args['s_day']
+        e_year = request.args['e_year']
+        e_month = request.args['e_month']
+        e_day = request.args['e_day']
+        if len(s_month) == 1:
+            s_month = '0' + s_month
+        if len(s_day) == 1:
+            s_day = '0' + s_day
+        if len(e_month) == 1:
+            e_month = '0' + e_month
+        if len(e_day) == 1:
+            e_day = '0' + e_day
+        start = s_year + s_month + s_day
+        end = e_year + e_month + e_day
+        # df에서 stateDt가 start보다 크거나 같다
+        # and
+        # df에서 stateDt가 end보다 작거나 같다
+        flag = df['stateDt'] >= int(start)
+        flag2 = df['stateDt'] <= int(end)
+        df = df.loc[flag  & flag2 , ]
+    else:
+        print('데이터가 존재하지 않는다. ')
     # 해당 데이터에서 가장 최근의 데이터의 값들을 추출
     date = df.iloc[-1, 0]
     decide = df.iloc[-1, 1]
