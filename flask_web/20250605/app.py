@@ -75,12 +75,15 @@ def corona2():
         flag = df['stateDt'] >= int(start)
         flag2 = df['stateDt'] <= int(end)
         df = df.loc[flag  & flag2 , ]
+        date = f"{start} ~ {end}"
+        decide = df['일일확진자'].sum()
+        death = df['일일사망자'].sum()
     else:
         print('데이터가 존재하지 않는다. ')
-    # 해당 데이터에서 가장 최근의 데이터의 값들을 추출
-    date = df.iloc[-1, 0]
-    decide = df.iloc[-1, 1]
-    death = df.iloc[-1, 2]
+        # 해당 데이터에서 가장 최근의 데이터의 값들을 추출
+        date = df.iloc[-1, 0]
+        decide = df.iloc[-1, 1]
+        death = df.iloc[-1, 2]
     # 데이터프레임을 html로 변환?
     html_data = df.to_html(index=False)
     # 그래프에서 사용할 x, y축 데이터를 생성 (리스트의 형태)
