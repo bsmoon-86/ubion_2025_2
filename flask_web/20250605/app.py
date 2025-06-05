@@ -21,7 +21,7 @@ corona['일일사망자'] = corona['deathCnt'].diff(1).fillna(0)
 def index():
     # 127.0.0.1:5000/ 요청이 들어왔을때 자동 호출
     # corona 데이터에서 stateDt, 일일확진자, 일일사망자 컬럼을 추출
-    df = corona[ ['stateDt', '일일확진자', '일일사망자'] ]
+    df = corona[ ['stateDt', '일일확진자', '일일사망자', 'stateTime', 'updateDt'] ].tail(20)
     # 해당 데이터에서 가장 최근의 데이터의 값들을 추출
     date = df.iloc[-1, 0]
     decide = df.iloc[-1, 1]
@@ -33,9 +33,38 @@ def index():
     dict_data = df.to_dict(orient='records')
     print(f"데이터프레임의 컬럼의 목록 : {col_list}")
     print(f"데이터프레임 딕셔너리형 변환 : {dict_data[0]}")
-    return ""
+    # date의 포멧을 변경 
+    date = str(date)
+    date = date[:4] + "년" + date[4:6] + '월' + date[6:] + '일'
+    return render_template(
+        'corona.html', 
+        statedt = date, 
+        decidecnt = decide, 
+        deathcnt = death, 
+        cols = col_list, 
+        values = dict_data
+    )
 
+@app.route("/corona")
+def corona2():
 
+    df = corona[ ['stateDt', '일일확진자', '일일사망자', 'stateTime', 'updateDt'] ]
+    # 해당 데이터에서 가장 최근의 데이터의 값들을 추출
+    date = df.iloc[-1, 0]
+    decide = df.iloc[-1, 1]
+    death = df.iloc[-1, 2]
+    # 데이터프레임을 html로 변환?
+    html_data = df.to_html(index=False)
+    # 그래프에서 사용할 x, y축 데이터를 생성 (리스트의 형태)
+    x = df['stateDt'].to_list()
+    y = df['일일확진자'].to_list()
+    return render_template('corona2.html', 
+                           statedt = date, 
+                           decidecnt = decide, 
+                           deathcnt = death, 
+                           table = html_data, 
+                           axis_x = x, 
+                           axis_y = y)
 
 
 
