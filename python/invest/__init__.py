@@ -23,24 +23,24 @@ class Quant:
         print(f"바이앤홀드 전략으로 최종 수익율은 {acc_rtn}")
         return df, acc_rtn
 
-    def bollinger(self, cnt = 20):
+    def bollinger(self, _cnt = 20):
         # cnt : 이동평균선에서 사용할 일자 
         band_df = boll.create_band(self.df, 
                                    self.start, 
                                    self.end, 
                                    self.col,
-                                   cnt)
+                                   _cnt)
         trade_df = boll.create_trade(band_df)
         df, acc_rtn = boll.create_rtn(trade_df)
         print(f"볼린져밴드 전략으로 최종 수익율은 {acc_rtn}")
         return df, acc_rtn
 
-    def halloween(self, month = 11):
+    def halloween(self, _month = 11):
         df, acc_rtn = hall.six_month(self.df, 
                                      self.start, 
                                      self.end, 
                                      self.col, 
-                                     month)
+                                     _month)
         print(f"할로윈 전략으로 최종 수익율은 {acc_rtn}")
         return df, acc_rtn
     
