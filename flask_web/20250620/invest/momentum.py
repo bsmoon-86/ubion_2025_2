@@ -37,9 +37,12 @@ def create_last_month(
 
 def create_rtn(
     _df1, _df2, 
+    _start = '2010-01-01', 
+    _end = datetime.now(),
     _score = 1
 ):
     df = _df1.copy()
+    df = df.loc[_start : _end, ]
     # trade, rtn 컬럼을 생성
     df['trade'] = ""
     df['rtn'] = 1
