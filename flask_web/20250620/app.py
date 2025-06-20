@@ -10,8 +10,8 @@ app = Flask(__name__)
 # root url + 주소(route함수에 인자) 
 @app.route('/')
 def index():
-    return "Hello World"
+    return render_template('index.html')
 
 
 # 웹서버를 실행 
-app.run()
+app.run(debug=True)
