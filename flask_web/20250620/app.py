@@ -1,5 +1,7 @@
 # 프레임워크 로드 
 from flask import Flask, render_template, request, url_for
+import pandas as pd
+
 
 # Flask class 생성 
 # 생성자 함수 필요한 인자 : 파일의 이름 
@@ -10,7 +12,15 @@ app = Flask(__name__)
 # root url + 주소(route함수에 인자) 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # csv 파일 로드 
+    df = pd.read_csv("csv/AAPL.csv").tail(20)
+    # 컬럼의 이름들을 리스트로 변경하여 변수에 저장
+    cols = list(df.columns)
+    # values를 리스트 안에 딕셔너리 형태로 변환 
+    value = df.to_dict('records')
+    return render_template('index.html', 
+                           columns = cols, 
+                           values = value)
 
 
 # 웹서버를 실행 
