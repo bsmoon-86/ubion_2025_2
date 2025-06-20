@@ -1,6 +1,7 @@
 # 프레임워크 로드 
 from flask import Flask, render_template, request, url_for
 import pandas as pd
+from invest import Quant
 
 
 # Flask class 생성 
@@ -18,9 +19,34 @@ def index():
     cols = list(df.columns)
     # values를 리스트 안에 딕셔너리 형태로 변환 
     value = df.to_dict('records')
+    # 그래프에서 보여질 데이터를 생성 
+    x = list(df['Date'])
+    y = list(df['Adj Close'])
     return render_template('index.html', 
                            columns = cols, 
-                           values = value)
+                           values = value, 
+                           axis_x= x, 
+                           axis_y = y)
+
+@app.route("/aapl")
+def aapl():
+    df = pd.read_csv('csv/AAPL.csv')
+    # Quant class 생성 
+    quant = Quant(df)
+    # Halloween 전략 사용
+    hall_df, arr_rtn = quant.halloween()
+    # hall_df의 인덱스를 초기화하고 기존의 인덱스는 유지 
+    # 기존의 인덱스가 시간 데이터임으로
+    hall_df.reset_index(inplace=True)
+    cols = list(hall_df.columns)
+    value = hall_df.to_dict('records')
+    x = list(hall_df['Date'])
+    y = list(hall_df['acc_rtn'])
+    return render_template('index.html', 
+                        columns = cols, 
+                        values = value, 
+                        axis_x= x, 
+                        axis_y = y)
 
 
 # 웹서버를 실행 
