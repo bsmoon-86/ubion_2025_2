@@ -8,6 +8,17 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route("/test")
+def test():
+    return render_template('test.html')
+
+@app.route('/password', methods=['post'])
+def password():
+    # 유저가 보낸 데이터 post 방식
+    user_pass = request.form['user_pass']
+    print(user_pass)
+    return ""
+
 @app.route('/game')
 def game():
     # 유저가 보낸 데이터를 변수에 저장 
@@ -67,6 +78,8 @@ def game2():
     # return 데이터가 ajax에서 type 이 json으로 설정
     # json과 같은 형태 -> dict
     res_data = {
+        'user' : _user, 
+        'server' : com_select,
         'result' : result
     }
     return res_data

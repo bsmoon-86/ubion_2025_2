@@ -41,7 +41,21 @@
                             function(res){
                                 // res : 서버가 보낸 데이터
                                 // 확인 
-                                alert(res['result'])
+                                // alert(res['result'])
+                                // res에는 user 키 값에는 유저의 데이터
+                                // res에 server 키 값에는 서버의 데이터
+                                // res에 result 키 값에는 결과
+                                // id가 game_result인 태그를 선택
+                                // 태그를 추가(append)해준다. 
+                                $('#game_result').append(
+                                    `
+                                        <p>
+                                            유저 : ${res['user']}, 
+                                            컴퓨터 : ${res['server']}, 
+                                            결과 : ${res['result']}
+                                        </p>
+                                    `
+                                )
                             }
                         )
 

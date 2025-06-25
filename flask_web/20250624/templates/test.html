@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>    
+    <!-- jquery 라이브러리 로드 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <input type="password" name="user_pass" >
+    <div id = 'area'></div>
+    <script>
+        // input 태그중에 name이 user_pass 라는 태그를 선택 
+        // 키가 입력이 될때마다(이벤트)
+        $("input[name='user_pass']").keyup(
+            // 뭔가의 행동을 하겠다
+            function(){
+                // input태그 중 name이 user_pass인 태그를 선택해서 
+                // 입력된 value를 변수에 대입 
+                let pass_val = $("input[name='user_pass']").val()
+                // id가 area인 태그를 선택 html코드를 넣어준다. 
+                $('#area').html(
+                    ` <p> ${pass_val} </p> `
+                )
+                // ajax을 이용해서 데이터를 보낸다 
+                $.ajax(
+                    {
+                        url : '/password', 
+                        method : 'post',
+                        data : {
+                            'user_pass' : pass_val
+                        }, 
+                        dataType : 'json'                         
+                    }
+                )
+            }
+        )
+    </script>
+</body>
+</html>
